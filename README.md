@@ -1,4 +1,4 @@
-# nous-agent
+# hermes-settlement
 
 An autonomous agent that reasons with [Hermes](https://nousresearch.com/hermes/), proves identity through [ERC-8004](https://github.com/ethereum/ERCs) on-chain registration, and settles work on [Bittensor](https://bittensor.com/).
 

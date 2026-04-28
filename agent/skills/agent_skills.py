@@ -71,7 +71,7 @@ def build_agent_card(
                 },
             },
             "provider": {
-                "organization": "nous-agent",
+                "organization": "hermes-settlement",
             },
             "identity": {
                 "publicKey": agent_pub_key,

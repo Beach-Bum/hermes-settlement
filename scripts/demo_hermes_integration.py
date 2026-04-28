@@ -8,7 +8,7 @@ The LLM decides which tools to call — we don't hardcode anything.
 Tool dispatch goes through Hermes's actual tools/registry.py.
 
 Run from the hermes-agent directory:
-    LD_LIBRARY_PATH=... ERC8004_PRIVATE_KEY=... NOUS_API_KEY=... python3 /tmp/nous-agent/scripts/demo_hermes_integration.py
+    LD_LIBRARY_PATH=... ERC8004_PRIVATE_KEY=... NOUS_API_KEY=... python3 /tmp/hermes-settlement/scripts/demo_hermes_integration.py
 """
 
 import os

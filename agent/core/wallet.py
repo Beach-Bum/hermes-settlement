@@ -22,7 +22,7 @@ from typing import Optional
 
 from agent.core.keystore import AgentKeystore, SecureKey, get_or_create_key
 
-WALLET_DIR = Path.home() / ".nous-agent" / "wallet"
+WALLET_DIR = Path.home() / ".hermes-settlement" / "wallet"
 POLICY_FILE = WALLET_DIR / "policy.json"
 AUDIT_FILE = WALLET_DIR / "audit.jsonl"
 
@@ -71,7 +71,7 @@ class AgentWallet:
     Autonomous wallet for the Nous agent. TAO-denominated.
     """
 
-    def __init__(self, agent_name: str = "nous-agent"):
+    def __init__(self, agent_name: str = "hermes-settlement"):
         self.agent_name = agent_name
         self._key: Optional[SecureKey] = None
         self.pub_key_hex: str = ""

@@ -44,7 +44,7 @@ class BittensorClient(SettlementClient):
         self,
         network: str = "test",
         netuid: int = 1,
-        wallet_name: str = "nous-agent",
+        wallet_name: str = "hermes-settlement",
         hotkey_name: str = "default",
     ):
         self.network = network

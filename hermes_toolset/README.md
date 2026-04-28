@@ -6,7 +6,7 @@ On-chain identity (ERC-8004) and Bittensor settlement as a native Hermes toolset
 
 ```bash
 # From the hermes-agent repo root:
-cp /path/to/nous-agent/hermes_toolset/settlement_tool.py tools/settlement_tool.py
+cp /path/to/hermes-settlement/hermes_toolset/settlement_tool.py tools/settlement_tool.py
 
 # Install dependencies
 pip install web3 bittensor

@@ -32,8 +32,8 @@ try:
 except ImportError:
     CRYPTO_AVAILABLE = False
 
-KEYCHAIN_SERVICE = "nous-agent"
-KEY_FILE_DIR = Path.home() / ".nous-agent" / "keys"
+KEYCHAIN_SERVICE = "hermes-settlement"
+KEY_FILE_DIR = Path.home() / ".hermes-settlement" / "keys"
 
 
 class SecureKey:

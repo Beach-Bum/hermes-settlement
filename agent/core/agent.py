@@ -34,7 +34,7 @@ from agent.skills.meta_skills import register_meta_skills
 
 @dataclass
 class AgentConfig:
-    agent_name: str = "nous-agent"
+    agent_name: str = "hermes-settlement"
     stake_tao: str = "1.0"
     services: list = field(default_factory=lambda: [
         CapabilityService(
