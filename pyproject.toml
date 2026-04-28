@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nous-agent"
+version = "0.1.0"
+description = "Autonomous agent: Hermes brain, ERC-8004 identity, Bittensor settlement"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = [
+    "web3>=7.0",
+    "httpx>=0.28",
+]
+
+[project.optional-dependencies]
+bittensor = ["bittensor>=10.0"]
+
+[tool.setuptools.packages.find]
+include = ["agent*"]

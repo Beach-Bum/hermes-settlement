@@ -4,6 +4,10 @@ Reference autonomous agent: Hermes brain, ERC-8004 identity, Bittensor settlemen
 
 ![Demo](demo/nous-demo.gif)
 
+### Hermes Agent Integration
+
+![Hermes Integration](demo/hermes-integration-demo.gif)
+
 ## Stack
 
 | Layer | What | Why |
