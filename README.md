@@ -2,11 +2,16 @@
 
 Reference autonomous agent: Hermes brain, ERC-8004 identity, Bittensor settlement.
 
-![Demo](demo/nous-demo.gif)
-
-### Hermes Agent Integration
-
-![Hermes Integration](demo/hermes-integration-demo.gif)
+<table>
+<tr>
+<td align="center"><strong>CLI Agent</strong></td>
+<td align="center"><strong>Hermes Agent Integration</strong></td>
+</tr>
+<tr>
+<td><img src="demo/nous-demo.gif" width="450" /></td>
+<td><img src="demo/hermes-integration-demo.gif" width="450" /></td>
+</tr>
+</table>
 
 ## Stack
 
