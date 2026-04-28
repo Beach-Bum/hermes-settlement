@@ -37,10 +37,7 @@ python scripts/run_agent.py
 The agent will connect to available backends and fall back to mock mode
 for any layer that isn't reachable.
 
-## Prior art
 
-Ported from [Agora](https://github.com/Beach-Bum/Agora) (Logos stack, Lambda Prize LP-0008).
-Same architectural DNA, different audience, different worldview.
 
 ## License
 
