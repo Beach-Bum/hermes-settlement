@@ -1,0 +1,12 @@
+{"version": 2, "width": 100, "height": 35, "timestamp": 1777368493, "env": {"SHELL": "/run/current-system/sw/bin/zsh", "TERM": ""}}
+[0.046351, "o", "  [mock-registry] Registered: settlement_register (toolset=settlement)\r\n  [mock-registry] Registered: settlement_reputation (toolset=settlement)\r\n  [mock-registry] Registered: settlement_record_task (toolset=settlement)\r\n  [mock-registry] Registered: settlement_balance (toolset=settlement)\r\n  [mock-registry] Registered: settlement_subnet_info (toolset=settlement)\r\n  [mock-registry] Registered: settlement_transfer (toolset=settlement)\r\n\u001b[36mSettlement Toolset — Standalone Test\u001b[0m\r\n\r\n\r\n\u001b[32m▶ settlement_register\u001b[0m\r\n"]
+[0.262196, "o", "[ERC-8004] Connected to chain 31337 | registry 0x5FbDB2315678afecb3... | 1 agents\r\n"]
+[1.583207, "o", "[Bittensor] Connected to test at block 7004336 | 467 subnets\r\n"]
+[1.593598, "o", "[ERC-8004] Already registered at 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266\r\n"]
+[1.594644, "o", "  {'registered': True, 'tx_hash': '0x_already_registered', 'block': 3, 'on_chain': True, 'stake': '0.01'}\r\n\r\n\u001b[32m▶ settlement_reputation\u001b[0m\r\n"]
+[1.598664, "o", "[Bittensor] get_reputation failed: Generic error: Failed to get hotkey: FileNotFound(\"Keyfile at: /home/ned/.bittensor/wallets/nous-agent/hotkeys/default does not exist.\")\r\n  {'erc8004': {'score': 1.0, 'total_tasks': 1, 'on_chain': True}, 'bittensor': {'score': 0.0, 'total_tasks': 0, 'on_chain': False}}\r\n\r\n\u001b[32m▶ settlement_record_task (success=true)\u001b[0m\r\n"]
+[1.605222, "o", "  {'recorded': True, 'success': True, 'tx_hash': 'd59dcdcf1927d28960efa0ea58829382a84a1e6395e3eaf69c315452e70f1482'}\r\n\r\n\u001b[32m▶ settlement_reputation (after task)\u001b[0m\r\n"]
+[1.607381, "o", "[Bittensor] get_reputation failed: Generic error: Failed to get hotkey: FileNotFound(\"Keyfile at: /home/ned/.bittensor/wallets/nous-agent/hotkeys/default does not exist.\")\r\n  {'erc8004': {'score': 1.0, 'total_tasks': 2, 'on_chain': True}, 'bittensor': {'score': 0.0, 'total_tasks': 0, 'on_chain': False}}\r\n\r\n\u001b[32m▶ settlement_balance\u001b[0m\r\n"]
+[1.607932, "o", "  {'eth': '9999.988649153619615702', 'tao': '0 (no wallet — create with btcli)'}\r\n\r\n\u001b[32m▶ settlement_subnet_info\u001b[0m\r\n"]
+[2.534675, "o", "  {'netuid': 1, 'network': 'test', 'neurons': 256, 'block': 7004336, 'mock': False}\r\n\r\n\u001b[36mAll tools working.\u001b[0m\r\n"]
+[2.536734, "o", "\u001b[0m"]
