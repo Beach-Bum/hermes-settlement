@@ -3,12 +3,12 @@ scripts/demo_hermes_integration.py
 
 Demo: Hermes Agent calling settlement tools via its native tool system.
 
-This runs Hermes's actual AIAgent with the settlement toolset enabled,
-sending prompts that trigger on-chain operations. The LLM (hermes3:8b
-via Ollama) decides which tools to call — we don't hardcode anything.
+Uses Hermes 4 405B via Nous Portal inference API with tool calling.
+The LLM decides which tools to call — we don't hardcode anything.
+Tool dispatch goes through Hermes's actual tools/registry.py.
 
 Run from the hermes-agent directory:
-    LD_LIBRARY_PATH=... ERC8004_PRIVATE_KEY=... python3 /tmp/nous-agent/scripts/demo_hermes_integration.py
+    LD_LIBRARY_PATH=... ERC8004_PRIVATE_KEY=... NOUS_API_KEY=... python3 /tmp/nous-agent/scripts/demo_hermes_integration.py
 """
 
 import os
@@ -53,41 +53,42 @@ def tool_call(name, args, result):
 
 async def run_demo():
     banner("Hermes Agent + Settlement Toolset Demo")
-    print(f"  Model:    hermes3:8b (Ollama, local)")
-    print(f"  Toolset:  settlement (ERC-8004 + Bittensor)")
-    print(f"  Registry: Hermes tools/registry.py")
-    print()
-
     # Import Hermes internals
     from tools.registry import registry
     import tools.settlement_tool  # registers our 6 tools
 
     settlement_tools = registry.get_tool_names_for_toolset("settlement")
-    print(f"  Registered tools: {settlement_tools}")
-    print(f"  Available: {registry.is_toolset_available('settlement')}")
 
     # Get tool schemas for the LLM
     tool_defs = registry.get_definitions(set(settlement_tools))
-    print(f"  Tool definitions for LLM: {len(tool_defs)}")
-    print()
 
-    # Use Ollama directly (same as Hermes does internally)
     import httpx
 
-    ollama_url = "http://localhost:11434"
-    model = "hermes3:8b"
+    nous_url = "https://inference-api.nousresearch.com/v1"
+    nous_key = os.environ.get("NOUS_API_KEY", "")
+    model = "nousresearch/hermes-4-405b"
+
+    print(f"  Model:      {model}")
+    print(f"  Endpoint:   {nous_url}")
+    print(f"  Toolset:    settlement ({len(settlement_tools)} tools)")
+    print(f"  Registry:   Hermes tools/registry.py")
+    print(f"  Available:  {registry.is_toolset_available('settlement')}")
+    print()
 
     client = httpx.AsyncClient(timeout=120.0)
 
-    async def ollama_chat(messages):
-        resp = await client.post(f"{ollama_url}/api/chat", json={
-            "model": model,
-            "messages": messages,
-            "tools": tool_defs,
-            "stream": False,
-        })
+    async def nous_chat(messages):
+        resp = await client.post(f"{nous_url}/chat/completions",
+            headers={"Authorization": f"Bearer {nous_key}"},
+            json={
+                "model": model,
+                "messages": messages,
+                "tools": tool_defs,
+                "max_tokens": 500,
+            },
+        )
         resp.raise_for_status()
-        return resp.json()["message"]
+        return resp.json()["choices"][0]["message"]
 
     async def chat_with_tools(user_message, history=None):
         """Send a message to Hermes model with settlement tools available."""
@@ -96,7 +97,7 @@ async def run_demo():
 
         user_says(user_message)
 
-        assistant_msg = await ollama_chat(messages)
+        assistant_msg = await nous_chat(messages)
         messages.append(assistant_msg)
 
         # Process up to 3 rounds of tool calls
@@ -106,12 +107,17 @@ async def run_demo():
 
             for tc in assistant_msg["tool_calls"]:
                 func_name = tc["function"]["name"]
-                func_args = tc["function"]["arguments"]
+                raw_args = tc["function"]["arguments"]
+                func_args = json.loads(raw_args) if isinstance(raw_args, str) else raw_args
                 result = registry.dispatch(func_name, func_args)
                 tool_call(func_name, func_args, result)
-                messages.append({"role": "tool", "content": result})
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc["id"],
+                    "content": result,
+                })
 
-            assistant_msg = await ollama_chat(messages)
+            assistant_msg = await nous_chat(messages)
             messages.append(assistant_msg)
 
         if assistant_msg.get("content"):
@@ -158,10 +164,10 @@ async def run_demo():
     await client.aclose()
 
     banner("Demo Complete")
-    print(f"  Hermes (hermes3:8b) called settlement tools natively")
-    print(f"  through its own tool registry — no wrapper, no adapter.")
+    print(f"  Hermes 4 405B called settlement tools natively")
+    print(f"  through Hermes's own tool registry — no wrapper, no adapter.")
     print(f"  The same tools appear in `hermes tools` alongside")
-    print(f"  the 40+ built-in tools.")
+    print(f"  the 30+ built-in tools.")
     print()
 
 
